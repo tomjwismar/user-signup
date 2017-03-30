@@ -52,19 +52,19 @@ class MainHandler(webapp2.RequestHandler):
                 <tr>
                     <td><label for="password">Password:</label></td>
                     <td>
-                        <input name="password" type="text" value="" required>
+                        <input name="password" type="password" value="" required>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="v_password">Verify Password:</label></td>
                     <td>
-                        <input name="v_password" type="text" value="" required>
+                        <input name="v_password" type="password" value="" required>
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="email">Email(optional):</label></td>
+                    <td><label for="email">Email (optional):</label></td>
                     <td>
-                        <input name="email" type="text" value="">
+                        <input name="email" type="email" value="">
                     </td>
                 </tr>
             </table>
@@ -73,8 +73,17 @@ class MainHandler(webapp2.RequestHandler):
         """
         self.response.write(page_header + add_form + page_footer)
 
+class Validation(webapp2.RequestHandler):
+
+    def post(self):
+        password = self.request.get("password")
+        v_password = self.request.get("v_password")
+
+        if password != v_password:
+            self.redirect("/?error")
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/submit',Validation)
 ], debug=True)
