@@ -29,7 +29,7 @@ page_header = """
     </style>
 </head>
 <body>
-    <h1>Sign Up</h1>
+    <h1>Signup</h1>
 """
 
 page_footer = """
@@ -39,6 +39,40 @@ page_footer = """
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        #add a form for user input "sign up"
+        add_form = """
+        <form action="/submit" method="post">
+            <table>
+                <tr>
+                    <td><label for="username">Username:</label></td>
+                    <td>
+                        <input name="username" type="text" value="" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td>
+                        <input name="password" type="text" value="" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="v_password">Verify Password:</label></td>
+                    <td>
+                        <input name="v_password" type="text" value="" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email(optional):</label></td>
+                    <td>
+                        <input name="email" type="text" value="">
+                    </td>
+                </tr>
+            </table>
+            <input type = "submit" value="Submit">
+        </form>
+        """
+        self.response.write(page_header + add_form + page_footer)
+
 
 
 app = webapp2.WSGIApplication([
